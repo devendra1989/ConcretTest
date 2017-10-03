@@ -1,0 +1,79 @@
+﻿@model ConcertTest.Models.ProductDetailModel
+@{
+    ViewBag.Title = "ProductDetail";
+}
+
+<h2>ProductDetail</h2>
+
+
+<div class="row">
+    <div class="col-md-5">
+        <img src="@Model.ImageString" alt="" />
+    </div>
+    <div class="col-md-1">
+    </div>
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-12">
+                <h3>@Model.Name</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label>Best buy price</label>
+            </div>
+            <div class="col-md-8">
+                $ @Model.Price
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label>Company Name</label>
+            </div>
+            <div class="col-md-8">
+                @Model.BrandName
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label>Merchant</label>
+            </div>
+            <div class="col-md-8">
+                @Model.MerchantName
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label>Available Feature</label>
+
+            </div>
+            <div class="col-md-8">
+                @Model.FeatureName
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                @Model.Description
+
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+<div class="col-md-12">
+    <p><a class="btn btn-primary pull-right ml10" href="@Url.Action("index","home")" role="button">Back</a> </p>
+   
+</div>
+
+
+
+
+
+
+
+
+
+
+

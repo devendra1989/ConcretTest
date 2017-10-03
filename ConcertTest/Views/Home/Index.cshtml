@@ -1,0 +1,103 @@
+﻿@model ConcertTest.Models.ProductListModel
+@{
+    ViewBag.Title = "Home Page";
+    var featureList = ViewBag.FeatureList;
+    var BrandList = ViewBag.BrandList;
+    var MerchantList = ViewBag.MerchantList;
+    var totalPages = Model.TotalPages == 0 ? 1 : Model.TotalPages;
+    var page = Model.Page;
+}
+<div class="col-md-3">
+    @if (featureList != null)
+    {
+        <div>
+            <a href="#" class="list-group-item active">
+                Feature
+            </a>
+            <ul class="list-group">
+                @foreach (var feature in featureList)
+                {
+                    <li class="list-group-item">
+                        @feature.Name
+                        <span class="pull-left ml10"><input type="checkbox" id="feature_@feature.Id" class="feature-data" value="@feature.Id" /> </span>
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+    @if (BrandList != null)
+    {
+        <div>
+            <a href="#" class="list-group-item active list-group-item-success">
+                Brands
+            </a>
+            <ul class="list-group">
+                @foreach (var brand in BrandList)
+                {
+                    <li class="list-group-item">
+                        @brand.Name
+                        <span class="pull-left"><input class="brand-data" id="brand_@brand.Id" type="checkbox" value="@brand.Id" /> </span>
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+    @if (MerchantList != null)
+    {
+        <div>
+            <a href="#" class="list-group-item active">
+                Merchant
+            </a>
+            <ul class="list-group">
+                @foreach (var merchant in MerchantList)
+                {
+                    <li class="list-group-item">
+                        @merchant.Name
+                        <span class="pull-left"><input class="merchant-data" id="merchant_@merchant.Id" type="checkbox" value="@merchant.Id" /> </span>
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+    <div>
+        <a href="#" class="list-group-item active">
+            Price Range
+        </a>
+        <div class="list-group">
+            <li class="list-group-item list-group-item-success"> <div class="pro-range-filter range-data"></div></li>
+        </div>
+    </div>
+    <div>
+        <ul class="list-group">
+            <a href="javascript:void(0);" class="createFilter"> <li class="list-group-item list-group-item-success">Refine Filter </li></a>
+        </ul>
+    </div>
+</div>
+<!-- /.col -->
+<div class="col-md-9">
+    <div class="row">
+        @foreach (var product in Model.ProductList)
+        {
+            <div class="col-md-4 text-center col-sm-6 col-xs-6">
+                <div class="thumbnail product-box">
+                    <img src="@product.ImageString" alt="" />
+                    <div class="caption">
+                        <p><h3><a href="#" class="title-data">@product.Name </a></h3></p>
+                        <p>Price : <strong>$ @product.Price</strong>  </p>
+                        <p><a class="btn btn-primary" href="@Url.Action("productdetail","home",new { id=product.Id})" role="button">See Details</a> </p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="row">
+        <ul id="pagination-demo" class="pagination-sm alg-right-pad"></ul>
+    </div>
+</div>
+<script>
+
+     $(function () {
+         Pagination('@totalPages', '@page')
+         SetFilter()
+        });
+</script>
