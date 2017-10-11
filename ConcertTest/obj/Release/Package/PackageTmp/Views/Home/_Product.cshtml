@@ -1,0 +1,44 @@
+﻿@model ConcertTest.Models.ProductListModel
+@{
+    var totalPages = Model.TotalPages == 0 ? 1 : Model.TotalPages;
+    var page = Model.Page;
+}
+<div class="row">
+    @if (Model.ProductList.Count > 0)
+    {
+        foreach (var product in Model.ProductList)
+        {
+            <div class="col-md-4 text-center col-sm-6 col-xs-6">
+                <div class="thumbnail product-box">
+                    <img src="@product.ImageString" alt="" />
+                    <div class="caption">
+                        <p><h3><a href="#" class="title-data">@product.Name </a></h3></p>
+                        <p>Price : <strong>$ @product.Price</strong>  </p>
+                        <p><a class="btn btn-primary" href="@Url.Action("productdetail","home",new { id=product.Id})" role="button">See Details</a> </p>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="alert alert-danger">
+            <strong>OOPS!</strong> No product available.
+        </div>
+    }
+
+</div>
+@if (Model.ProductList.Count > 0)
+{
+    <div class="row">
+        <ul id="pagination-demo" class="pagination-sm alg-right-pad"></ul>
+    </div>
+}
+
+<script>
+
+     $(function () {
+         Pagination('@totalPages', '@page')
+         //SetFilter()
+        });
+</script>

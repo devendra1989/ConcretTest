@@ -1,71 +1,35 @@
 ﻿function pageFilter(data, page) {
-    var params = getUrlVars();
-    redefineFilter(page, params.features, params.merchant, params.brand, params.minPrice, params.maxPrice, params.searchKey);
+    pageNumber = page;
+    debugger;
+    redefineFilter(page, features, merchant, brands, minValue, maxValue, searchKey);
+    $('.page-active').removeClass('page-active');
+    $('#page' + page).addClass('page-active');
 }
 
-function redefineFilter(page, features, merchant, brand, minPrice, maxPrice, searchKey) {
-    var urlString = '';
-    if (features != undefined && (features != "" || features != '')) {
-        urlString += "&features=" + features;
-    }
-    if (merchant != undefined && (merchant != "" || merchant != '')) {
-        urlString += "&merchant=" + merchant;
-    }
-    if (brand != undefined && (brand != "" || brand != '')) {
-        urlString += "&brand=" + brand;
-    }
-    if (minPrice != null && (minPrice <= maxPrice)) {
-        urlString += "&minPrice=" + minPrice;
-    }
-    if (maxPrice != null && (minPrice <= maxPrice)) {
-        if (maxPrice > 1) {
-            urlString += "&maxPrice=" + maxPrice;
+function redefineFilter(page, features, merchant, brands, minPrice, maxPrice, searchKey) {
+    var productFilter = {};
+    productFilter.PageNumber = page;
+    productFilter.MinPriceFilter = minPrice;
+    productFilter.MaxPriceFilter = maxPrice;
+    productFilter.MerchantNameFilter = merchant;
+    productFilter.BrandNameFilter = brands;
+    productFilter.FeatureFilter = features;
+    productFilter.Filter = searchKey;
+    $('.img-loader').show();
+    $.ajax({
+        url: baseurl + 'Home/Product',
+        type: 'POST',
+        cache: false,
+        contentType: 'application/json',
+        data: JSON.stringify(productFilter),
+        success: function (result) {
+            debugger;
+            $('#product-list').html(result);
+            $('.img-loader').hide();
+        }, error: function (xhr, status, error) {
+            $('.img-loader').hide();
         }
-    }
-    if (searchKey != undefined && (searchKey != "" || searchKey != '')) {
-        urlString += "&searchkey=" + searchKey;
-    }
-    if (page == undefined || page == 0) {
-        page = 1;
-    }
-      
-    var url = baseurl + 'Home/Index?page=' + page + urlString;
-    location.href = url;
-}
-
-function getUrlVars() {
-    var vars = [], hash;
-    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-    for (var i = 0; i < hashes.length; i++) {
-        hash = hashes[i].split('=');
-        vars.push(hash[0]);
-        vars[hash[0]] = hash[1];
-    }
-    return vars;
-}
-
-function SetFilter() {
-    var getFilterValues = getUrlVars();
-    if (getFilterValues.features != undefined) {
-        var fetArr = getFilterValues.features.split(',');
-        $.each(fetArr, function (index, value) {
-            $('#feature_' + value).prop('checked', true);
-        });
-    }
-
-    if (getFilterValues.brand != undefined) {
-        var brandArr = getFilterValues.brand.split(',');
-        $.each(brandArr, function (index, value) {
-            $('#brand_' + value).prop('checked', true);
-        });
-    }
-    if (getFilterValues.merchant != undefined) {
-          
-        var merchantArr = getFilterValues.merchant.split(',');
-        $.each(merchantArr, function (index, value) {
-            $('#merchant_' + value).prop('checked', true);
-        });
-    }
+    });
 }
 
 function Pagination(totalPages, page) {
@@ -74,7 +38,12 @@ function Pagination(totalPages, page) {
         totalPages: totalPages,
         visiblePages: 5,
         startPage: page,
+        first: 'First',
+        next: 'Next',
+        prev: 'Prev',
+        last: 'Last',
         onPageClick: pageFilter,
         initiateStartPageClick: false
+
     });
 }

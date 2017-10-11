@@ -65,6 +65,7 @@
     <div class="col-md-12 end-box ">
         &copy; 2017 | &nbsp; All Rights Reserved | &nbsp; www.yourdomain.com | &nbsp; 24x7 support | &nbsp; Email us: info@yourdomain.com
     </div>
+    @Html.Partial("_ImgLoader")
     @RenderSection("css", required: false)
     @Styles.Render("~/Content/css")
     @*@Scripts.Render("~/bundles/jquery")*@
@@ -73,6 +74,9 @@
         $(function () {
 
         });
+        $(window).load(function () {
+            $(".img-loader").fadeOut("slow");
+        })
     </script>
     @*@RenderSection("scripts", required: false)*@
     @Scripts.Render("~/bundles/concertscript")

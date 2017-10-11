@@ -1,31 +1,50 @@
-﻿$(function () {
+﻿var features;
+var brands;
+var merchant;
+var rangValue;
+var pageNumber;
+var minValue;
+var maxValue;
+var searchKey;
+
+
+$(function () {
+
     $(".pro-range-filter").asRange({
         range: true,
         limit: true,
         step: 100,
         min: 1,
-        max: 3000,
+        max: 30000,
         tip: {
             active: 'onMove'
         }
     });
 
     $('.createFilter').on('click', function () {
-        debugger
-        var params = getUrlVars();
-        var features = $('.feature-data:checked').map(function () { return this.value; }).get().join(',')
-        var brands = $('.brand-data:checked').map(function () { return this.value; }).get().join(',')
-        var merchant = $('.merchant-data:checked').map(function () { return this.value; }).get().join(',')
-        var rangValue = $('.range-data').asRange('val');
-        params.page = 1;
-        redefineFilter(params.page, features, merchant, brands, rangValue[0], rangValue[1]);
+        $('#txtSearch').val('');
+        features = $('.feature-data:checked').map(function () { return this.value; }).get().join(',')
+        brands = $('.brand-data:checked').map(function () { return this.value; }).get().join(',')
+        merchant = $('.merchant-data:checked').map(function () { return this.value; }).get().join(',')
+        rangValue = $('.range-data').asRange('val');
+        minValue = rangValue[0];
+        maxValue = rangValue[1];
+        pageNumber = 1;
+        redefineFilter(pageNumber, features, merchant, brands, minValue, maxValue, null);
     });
 
     $('#btnSeach').on('click', function () {
           
         var search = $('#txtSearch').val();
-        var params = getUrlVars();
-        redefineFilter(params.page, '', '', '', null, null, search);
+        features = $('.feature-data:checked').map(function () { return this.value; }).get().join(',')
+        brands = $('.brand-data:checked').map(function () { return this.value; }).get().join(',')
+        merchant = $('.merchant-data:checked').map(function () { return this.value; }).get().join(',')
+        rangValue = $('.range-data').asRange('val');
+        minValue = rangValue[0];
+        maxValue = rangValue[1];
+        pageNumber = 1;
+        searchKey = search;
+        redefineFilter(pageNumber, features, merchant, brands, minValue, maxValue, search);
     });
 
 });

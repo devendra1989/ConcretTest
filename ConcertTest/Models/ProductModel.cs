@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,12 +14,13 @@ namespace ConcertTest.Models
         public string ImageString { get; set; }
 
     }
-    public class ProductListModel
+    public class ProductListModel 
     {
         public List<ProductModel> ProductList { get; set; }
         public int TotalCount { get; set; }
         public int Page { get; set; }
         public int TotalPages { get; set; }
+        public ProductFilter ProductFilter { get; set; }
     }
 
     public class ProductDetailModel : ProductModel

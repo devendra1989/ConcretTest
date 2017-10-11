@@ -4,8 +4,8 @@
     var featureList = ViewBag.FeatureList;
     var BrandList = ViewBag.BrandList;
     var MerchantList = ViewBag.MerchantList;
-    var totalPages = Model.TotalPages == 0 ? 1 : Model.TotalPages;
-    var page = Model.Page;
+    //var totalPages = Model.TotalPages == 0 ? 1 : Model.TotalPages;
+    //var page = Model.Page;
 }
 <div class="col-md-3">
     @if (featureList != null)
@@ -74,30 +74,7 @@
     </div>
 </div>
 <!-- /.col -->
-<div class="col-md-9">
-    <div class="row">
-        @foreach (var product in Model.ProductList)
-        {
-            <div class="col-md-4 text-center col-sm-6 col-xs-6">
-                <div class="thumbnail product-box">
-                    <img src="@product.ImageString" alt="" />
-                    <div class="caption">
-                        <p><h3><a href="#" class="title-data">@product.Name </a></h3></p>
-                        <p>Price : <strong>$ @product.Price</strong>  </p>
-                        <p><a class="btn btn-primary" href="@Url.Action("productdetail","home",new { id=product.Id})" role="button">See Details</a> </p>
-                    </div>
-                </div>
-            </div>
-        }
-    </div>
-    <div class="row">
-        <ul id="pagination-demo" class="pagination-sm alg-right-pad"></ul>
-    </div>
+<div class="col-md-9" id="product-list">
+   @{Html.RenderAction("Product", "home"); }
+  
 </div>
-<script>
-
-     $(function () {
-         Pagination('@totalPages', '@page')
-         SetFilter()
-        });
-</script>
