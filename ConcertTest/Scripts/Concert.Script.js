@@ -6,10 +6,7 @@ var pageNumber;
 var minValue;
 var maxValue;
 var searchKey;
-
-
 $(function () {
-
     $(".pro-range-filter").asRange({
         range: true,
         limit: true,
@@ -34,7 +31,6 @@ $(function () {
     });
 
     $('#btnSeach').on('click', function () {
-          
         var search = $('#txtSearch').val();
         features = $('.feature-data:checked').map(function () { return this.value; }).get().join(',')
         brands = $('.brand-data:checked').map(function () { return this.value; }).get().join(',')
@@ -46,5 +42,4 @@ $(function () {
         searchKey = search;
         redefineFilter(pageNumber, features, merchant, brands, minValue, maxValue, search);
     });
-
 });

@@ -2,8 +2,7 @@
     pageNumber = page;
     debugger;
     redefineFilter(page, features, merchant, brands, minValue, maxValue, searchKey);
-    $('.page-active').removeClass('page-active');
-    $('#page' + page).addClass('page-active');
+   
 }
 
 function redefineFilter(page, features, merchant, brands, minPrice, maxPrice, searchKey) {
@@ -29,21 +28,5 @@ function redefineFilter(page, features, merchant, brands, minPrice, maxPrice, se
         }, error: function (xhr, status, error) {
             $('.img-loader').hide();
         }
-    });
-}
-
-function Pagination(totalPages, page) {
-
-    $('#pagination-demo').twbsPagination({
-        totalPages: totalPages,
-        visiblePages: 5,
-        startPage: page,
-        first: 'First',
-        next: 'Next',
-        prev: 'Prev',
-        last: 'Last',
-        onPageClick: pageFilter,
-        initiateStartPageClick: false
-
     });
 }
